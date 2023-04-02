@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 from django.urls import path, include
+from users.models import Profile,phoneModel
 
 from users import views as user_views
 from voting import views as voting_views
@@ -28,7 +29,7 @@ urlpatterns = [
     path('', lambda request: redirect('dashboard', permanent=False)),
     path('voting/', include('voting.urls')),
     path('register/', user_views.register, name='register'),
-    path('profile/', user_views.profile, name='profile'),
+    path('profile/',user_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(
@@ -49,9 +50,12 @@ urlpatterns = [
          ),
     path('about/', voting_views.about_page, name='about-page'),
     path('contact/', voting_views.contact_us, name='contact'),
-    path('camera/save-image/', voting_views.save_image, name="save-image")
-
+    path('camera/save-image/', voting_views.save_image, name="save-image"),
+    #path("send_otp",user_views.send_otp,name="send otp"),
+    #path("<phone>/", getPhoneNumberRegistered.as_view(), name="OTP Gen"),
+    #path("time_based/<phone>/", getPhoneNumberRegistered_TimeBased.as_view(), name="OTP Gen Time Based"),
 ]
 
 if settings.DEBUG:
+    
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

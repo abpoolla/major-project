@@ -1,0 +1,121 @@
+
+{%extends 'base.html'%}
+{% block title %}About Page{% endblock %}
+
+{% block content %}
+    <html>
+        <style>
+            table, th, td {
+              border:2px solid black;
+
+            }
+            #i1 {
+               padding:20px;
+                background-color: ;
+                transition: transform .2s; /* Animation */
+                width: 100px;
+                height: 100px;
+                margin: 0 auto;
+              }
+              
+              #i1:hover {transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+              }
+              .pnx-msg-icon pnx-icon-msg-warning {
+    width: 24px !important;
+    height: 24px !important;
+    
+}
+            </style>
+        <body bgcolor="" id="b1">
+            
+
+
+            <table  id="t"style="width:100%">
+              Total number of profiles registered:{{check}}<br>
+            Total number of users voted:{{n}}
+          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;search user&nbsp;<input  class="border-top pt-1 search"  type="text" id="t1"  placeholder="Search...">
+          
+               
+                <th>s.no</th>
+                <th>profile name</th>
+                <th>Name</th>
+                <th>email</th>
+                
+                <th>image</th>
+                <th>aadhar</th>
+                <th>address1</th>
+                <th>pincode</th>
+                
+                <th>admin status</th>
+                <th>votestatus</th>
+                
+                <tbody id="geeks">
+                <form method="POST" action="">
+                  {% csrf_token %}
+                {% for i in users %}
+                <tr>
+                    
+                      <td>{{forloop.counter}}</td>
+                     <td>{{i}}</td>
+                    <td>{{i.first_name}} {{i.last_name}}</td>
+                    <td>{{i.email}}</td>
+                   
+                        <td><img id="i1" class="square account-img" src="{{ i.profile.image.url }}" width="40",height="40"></td>
+                        <td>{{i.profile.aadharno}}</td>
+                        <td>{{i.profile.address_1}}</td>
+                        <td>{{i.profile.postal_code}}</td>
+                        
+    
+                      <td id="che"><center>  {%if i.is_superuser %}
+                            <i id ="true" class="fa fa-check icon" style="color: green; font-size:30px"></i>
+                            {%else%}
+                            <i id="false" class="fa fa-times icon" style="color: red; font-size:30px"></i>
+    
+                            {%endif%}</center></td>
+                            <td><center>{% if i in l1 %}
+                                <i class="fa fa-check icon" style="color: green; font-size:30px"></i>
+                                {%else%}
+                                  <i class="fa fa-times icon " style="color: red; font-size:30px;"></i>
+                                {%endif%}
+                         </center>   </td>
+                        
+                         <td>
+                          <button type="submit">preview</button></td> 
+               
+                {% endfor %}
+                <input type="hidden" id="te" name="te1"/>
+                        
+                
+              </form>
+              
+                         </table>
+                         
+            <script src=
+            "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+                </script>
+                
+            <script>
+               $(document).ready(function() {
+                $("#t1").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#geeks tr").filter(function() {
+                        $(this).toggle($(this).text()
+                        .toLowerCase().indexOf(value) > -1)
+                        
+                    });
+                    
+                });
+            });
+            $('#t').find('tr').click( function(){
+              var row = $(this).find('td:first').text();
+              
+              
+              document.getElementById('te').value=row
+              
+            });
+           
+            
+                  
+          </script>
+{% endblock content%}

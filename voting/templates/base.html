@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/Team-Boxed.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/Animated-Pretty-Product-List-1.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/Animated-Pretty-Product-List.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Article-List.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Article-List.css' %}"> 
     <link rel="stylesheet" type="text/css" href="{% static 'css/Highlight-Clean.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/Highlight-Phone.css' %}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
@@ -73,15 +73,32 @@
         </div>
     </nav>
 </header>
-
+{% if request.user.is_superuser%}
 <div id="side-menu" class="side-nav" onmouseenter="null" onmouseleave="closeSlideMenu()">
     <a href="#" class="btn-close" onclick="closeSlideMenu()">x</a>
     <a href="{% url 'dashboard' %}">Vote</a>
     <a href="{% url 'results_dashboard' %}">Results</a>
     <a href="{% url 'about-page' %}">About</a>
     <a href="{% url 'contact' %}">Contact</a>
-
+    <a href="{% url 'status'%}">Status_sheet</a>
+    <a href="{%url 'admin' %}">Admin</a>
+    
 </div>
+{%else%}
+<div id="side-menu" class="side-nav" onmouseenter="null" onmouseleave="closeSlideMenu()">
+    <a href="#" class="btn-close" onclick="closeSlideMenu()">x</a>
+    <a href="{% url 'dashboard' %}">Vote</a>
+    <a href="{% url 'results_dashboard' %}">Results</a>
+    <a href="{% url 'about-page' %}">About</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="{% url 'status'%}">Status_sheet</a>
+    
+    
+</div>
+{%endif%}
+
+    
+
 
 <main role="main" class="container">
     <div class="row mb-3">

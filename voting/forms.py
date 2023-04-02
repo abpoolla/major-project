@@ -8,3 +8,8 @@ class ContactForm(forms.Form):
 
     class Meta:
         fields = ['name', 'email', 'message']
+class Status(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        
+        fields = ['password']

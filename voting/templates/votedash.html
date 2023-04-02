@@ -45,11 +45,12 @@
         }
     </style>
 
-    <div hidden id="my_camera"></div>
+    <!-- <div hidden id="my_camera"></div> -->
+    <div id="my_camera"></div>
 
     <form id="myform" method="post" action="/camera/save-image/">
         <input id="mydata" type="hidden" name="mydata" value=""/>
-        <input id="voting_session" type="hidden" name="voting_session" value=""/>
+        <input id="voting_session" type="hidden" name="voting_session" value= {{ voting.pk }}/>
     </form>
 
     <div style=" text-align: center; margin-bottom: 40px; margin-top: 40px;">
@@ -82,9 +83,10 @@
         {% endfor %}
     </div>
 
-    <script type="text/javascript" src="{% static 'js/webcam.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/webcam.min.js' %}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js" integrity="sha512-dQIiHSl2hr3NWKKLycPndtpbh5iaHLo6MwrXm7F0FM5e+kL2U16oE9uIwPHUl6fQBeCthiEuV/rzP3MiAB8Vfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
 
-    <script language="JavaScript">
         Webcam.set({
             width: 320,
             height: 240,
@@ -94,16 +96,29 @@
         Webcam.attach('#my_camera');
 
         // code to handle taking the snapshot and displaying it locally
-        function take_snapshot() {
+        // function take_snapshot() {
 
-            // take snapshot and get image data
-            Webcam.snap(function (data_uri) {
-                var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+        //     // take snapshot and get image data
+        //     Webcam.snap(function (data_uri) {
+        //         var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
 
-                document.getElementById('mydata').value = raw_image_data;
-                document.getElementById('voting_session').value = {{ voting.pk }};
+        //         document.getElementById('mydata').value = raw_image_data;
+        //         document.getElementById('voting_session').value ={{ voting.pk }};
+        //         document.getElementById('myform').submit();
+        //     });
+        // }
+        function take_snapshot(){
+            Webcam.snap(function(data_uri){
+                var raw_image_data=data_uri.replace(/^data\:image\/\w+\;base64\,/," ");
+
+                document.getElementById('mydata').value=raw_image_data;
+              document.getElementById('voting_session').value={{voting.pk}};
                 document.getElementById('myform').submit();
-            });
+                console.log("hello")
+                
+            })
         }
+
+
     </script>
 {% endblock %}

@@ -74,13 +74,20 @@ WSGI_APPLICATION = 'voting_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'voting_system',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'voting_system',
+#     }
+# }
+
+
+DATABASES={
+    'default':{
+        'ENGINE':'django.db.backends.sqlite3',
+        'NAME':'db.sqlite3',
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -104,7 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
+USE_TZ = True
 
 USE_I18N = True
 
@@ -135,7 +143,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_HOST_USER = 'ananthabalucm023@gmail.com'
+EMAIL_HOST_PASSWORD = 'naucousxlkimphzs'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

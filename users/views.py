@@ -2,10 +2,12 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-
-
+import base64
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm,User
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.mail import send_mail
+import math, random
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -21,12 +23,16 @@ def register(request):
 
 @login_required
 def profile(request):
+    
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        u_form.fields['email'].disabled=True
         if u_form.is_valid() and p_form.is_valid():
+            
             u_form.save()
             p_form.save()
+            
             messages.success(request, f'Your account has been updated')
             return redirect('profile')
     else:
@@ -35,4 +41,4 @@ def profile(request):
         if settings.GLOBAL_SETTINGS.get('default_image') in request.user.profile.image.path:
             messages.warning(request,
                              f'In order to be able to vote, please update your profile and provide a picture of your face!')
-    return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form})
+    return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form,'User':User})

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}status details{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<fieldset class="form-group">
+    <legend class="border-bottom mb-4"><marquee>ACKNOWLEDGEMENT OF USER DETAILS AND VOTE STATUS</marquee></legend>
+    <legend><center><img class="img-fluid account-img" src="{{ user.profile.image.url }}"></center></legend>
+      
+    
+    
+        <table width='100%' border='3'>
+           <th></td></th>
+            <tr>
+            <th>
+                username:<td>{{user.first_name}}{{user.last_name}}</td> 
+             </th></tr>
+            <tr>
+            <th>authentication<td><h4>{% if user.is_authenticated%}<i class="fa fa-check icon" style="color: green; font-size:30px"></i>
+                {%else%}
+                  <i class="fa fa-times icon " style="color: red; font-size:30px;"></i>
+                {%endif%}
+
+            </h4>
+            </td></th></tr>
+            <tr><th>aadhar<td>{{request.user.profile.aadharno}}</td></th></tr>
+           <tr> <th>address<td>{{request.user.profile.address_1}}</td></th></tr>
+           <tr><th>address2<td>{{request.user.profile.address_2}}</td></th></tr>
+            <tr><th>pincode<td>{{request.user.profile.postal_code}}</td></th></tr>
+            <tr><th>city<td>{{request.user.profile.city}}</td></th></tr>
+            <tr><th>voted(yes<i class="fa fa-check icon" style="color: green; font-size:20px"></i>/no<i class="fa fa-times icon " style="color: red; font-size:20px;"></i>)
+               <td> {% if user in l1 %}
+                                <i class="fa fa-check icon" style="color: green; font-size:30px"></i>
+                                {%else%}
+                                  <i class="fa fa-times icon " style="color: red; font-size:30px;"></i>
+                                {%endif%}</td></th></tr>
+            <tr><th>last login<td>{{user.last_login}}</td>    </table>
+        
+           
+           
+            </fieldset>
+            
+        </form></center>
+        <div class="form-group">
+           <center> <input class="btn btn-outline-info" width="1000px" id="printpagebutton" type="button" value="print" onclick="printpage()" style="color: #f6f6f6; background-color: #38988b; height:50px;width:300px"/></div>
+        
+    </div>
+
+    
+<script>
+    function printpage() {
+        //Get the print button and put it into a variable
+        var printButton = document.getElementById("printpagebutton");
+        //Set the print button visibility to 'hidden' 
+        printButton.style.visibility = 'hidden';
+        //Print the page content
+        window.print()
+        printButton.style.visibility = 'visible';
+    }
+</script>
+
+        
+    
+{% endblock %}
